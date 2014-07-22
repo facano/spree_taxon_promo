@@ -1,4 +1,22 @@
+setAC = false;
+
 $(document).ready(function () {
+  setAutocomplete();
+
+  $("body").on("DOMChanged", function(event) {
+      if ($('input[data-taxon-select]').length > 0) {
+        if (!setAC) {
+          setAC = true;
+          console.log('Set autocomplete');
+          setTimeout(function(){setAutocomplete();}, 1000);
+        }
+      } else {
+        setAC = false;
+      }
+  });
+});
+
+function setAutocomplete() {
   'use strict';
 
   if ($('input[data-taxon-select]').length > 0) {
@@ -44,4 +62,4 @@ $(document).ready(function () {
       }
     });
   }
-});
+};
