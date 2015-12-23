@@ -13,6 +13,11 @@ Spree::BaseHelper.class_eval do
       hidden_field_tag(name, 0, id: "#{name}_hidden") +
       check_box_tag(name, 1, value, preference_field_options(options))
     when :string
+      if name.split('[').last.split(']').first == 'preferred_taxon'
+        data = { taxon_select: '1' }
+        options[:data] = data
+      end
+
       text_field_tag(name, value, preference_field_options(options))
     when :password
       password_field_tag(name, value, preference_field_options(options))

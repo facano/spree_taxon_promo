@@ -22,15 +22,15 @@ function setAutocomplete() {
   if ($('input[data-taxon-select]').length > 0) {
     $('input[data-taxon-select]').select2({
       placeholder: Spree.translations.taxon_placeholder,
-      multiple: false,
+      multiple: true,
       width: 200,
       minimumInputLength: 2,
       initSelection: function (element, callback) {
         var url = Spree.url(Spree.routes.taxons_search, {
-          ids: element.val()
+          ids: element.val().split(',')
         });
         return $.getJSON(url, null, function (data) {
-          return callback(data['taxons'][0]);
+          return callback(data['taxons']);
         });
       },
       ajax: {
