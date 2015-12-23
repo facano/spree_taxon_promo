@@ -3,7 +3,7 @@ Spree::BaseHelper.class_eval do
   def preference_field_tag(name, value, options)
 	case options[:type]
     when :integer
-      if name.split('[').last.split(']').first == 'preferred_taxon'
+      if name && name.is_a?(String) && name.split('[').last.split(']').first == 'preferred_taxon'
       	data = { taxon_select: '1' }
       	options[:data] = data
   	  end
@@ -13,7 +13,7 @@ Spree::BaseHelper.class_eval do
       hidden_field_tag(name, 0, id: "#{name}_hidden") +
       check_box_tag(name, 1, value, preference_field_options(options))
     when :string
-      if name.split('[').last.split(']').first == 'preferred_taxon'
+      if name && name.is_a?(String) && name.split('[').last.split(']').first == 'preferred_taxon'
         data = { taxon_select: '1' }
         options[:data] = data
       end
